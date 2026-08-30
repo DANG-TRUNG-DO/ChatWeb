@@ -1,0 +1,217 @@
+# Realtime Chat Web - Requirement
+
+1. MỤC TIÊU
+
+Xây dựng một ứng dụng Web Chat Realtime với các chức năng cơ bản tương tự Messenger/Telegram. Dự án tập trung vào Backend, Realtime Communication và kiến trúc có khả năng mở rộng trong tương lai.
+
+Kiến trúc ban đầu sử dụng Modular Monolith, tránh over-engineering bằng Microservices ở giai đoạn đầu.
+
+2. TECH STACK
+
+Backend:
+- Java 21
+- Spring Boot
+- Spring Web
+- Spring Security + JWT
+- Spring WebSocket + STOMP
+- Spring Data JPA / Hibernate
+- PostgreSQL
+- Redis
+- Flyway
+- Swagger / OpenAPI
+
+Frontend:
+- React + TypeScript + Vite
+- Tailwind CSS + shadcn/ui
+- React Router
+- TanStack Query
+- Zustand
+- STOMP.js
+
+Infrastructure:
+- Docker + Docker Compose
+- GitHub + GitHub Actions
+- JUnit 5 + Mockito + Testcontainers
+
+Deployment:
+- Frontend: Cloudflare Pages
+- Backend: Render
+- Database: Neon PostgreSQL
+- Redis: Upstash
+
+3. SYSTEM ARCHITECTURE
+
+React + TypeScript
+        |
+REST API + WebSocket
+        |
+        v
+Spring Boot Backend
+  Modular Monolith
+        |
+   +----+----+
+   |         |
+PostgreSQL Redis
+
+Backend được chia thành các module:
+
+Auth
+User
+Conversation
+Message
+Realtime
+
+Các module cần có boundary rõ ràng để có thể mở rộng hoặc tách thành Microservices trong tương lai.
+
+4. FUNCTIONAL REQUIREMENTS
+
+Authentication:
+- Register / Login / Logout.
+- JWT Access Token + Refresh Token.
+- Password hashing.
+- Authentication cho REST API và WebSocket.
+
+User:
+- Xem và chỉnh sửa profile.
+- Search user.
+- Avatar.
+- Online / Offline status.
+
+Conversation:
+- Direct Chat.
+- Group Chat.
+- Tạo/xóa conversation.
+- Thêm/xóa member.
+- Conversation list.
+- Group roles: OWNER, ADMIN, MEMBER.
+
+Messaging:
+- Gửi và nhận tin nhắn realtime.
+- Message types: TEXT, IMAGE, FILE.
+- Edit / Delete / Reply message.
+- Message history.
+- Read / Unread.
+- Cursor-based pagination.
+
+Realtime:
+- WebSocket endpoint: /ws.
+- Client gửi message qua /app/...
+- Client subscribe conversation qua /topic/conversation/{id}.
+- Events: MESSAGE_SENT, MESSAGE_UPDATED, MESSAGE_DELETED,
+  MESSAGE_READ, TYPING, USER_ONLINE/OFFLINE.
+
+Message phải được lưu vào PostgreSQL trước khi broadcast.
+
+5. DATABASE & REDIS
+
+PostgreSQL tables chính:
+
+users
+refresh_tokens
+conversations
+conversation_members
+messages
+
+PostgreSQL là source of truth.
+
+Yêu cầu:
+- Flyway migration.
+- Index cho message history.
+- Cursor pagination.
+- Read/unread lưu theo last_read_message_id.
+
+Redis sử dụng cho:
+- User presence.
+- Cache.
+- WebSocket distributed state.
+- Rate limiting.
+
+Redis không lưu message như nguồn dữ liệu chính.
+
+6. SECURITY & QUALITY
+
+Hệ thống phải có:
+- JWT authentication.
+- Password hashing.
+- REST và WebSocket authorization.
+- Input validation.
+- CORS.
+- HTTPS/WSS khi production.
+- Rate limiting.
+- Environment variables cho secrets.
+- Swagger API documentation.
+- Unit Test và Integration Test.
+
+7. DEPLOYMENT & CI/CD
+
+Cloudflare Pages
+       |
+       v
+React Frontend
+       |
+ HTTPS / WSS
+       |
+       v
+Render - Spring Boot
+       |
+  +----+----+
+  |         |
+Neon      Upstash
+PostgreSQL Redis
+
+CI/CD:
+
+Git Push
+   |
+   v
+GitHub Actions
+   |
+   v
+Build + Test
+   |
+   v
+Deploy
+
+8. SCALABILITY
+
+Ban đầu chạy một Spring Boot instance.
+
+Khi cần scale:
+
+Load Balancer
+   /        \
+Backend 1  Backend 2
+     \      /
+      Redis
+        |
+   PostgreSQL
+
+Không sử dụng Microservices, Kafka hoặc Kubernetes ngay từ đầu. Chỉ bổ sung khi có yêu cầu thực tế.
+
+9. MVP
+
+MVP cần hoàn thành:
+
+Register/Login
+      |
+Search User
+      |
+Direct Chat
+      |
+Realtime Messaging
+      |
+PostgreSQL Persistence
+      |
+Message History
+      |
+Read/Unread
+      |
+Public Deployment
+
+Sau MVP phát triển thêm:
+- Group Chat
+- Typing Indicator
+- Online/Offline
+- File Upload
+- Redis
+- Horizontal Scaling

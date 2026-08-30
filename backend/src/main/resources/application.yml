@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: chatweb-backend
+  profiles:
+    active: dev
+
+server:
+  port: 8080
