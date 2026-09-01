@@ -74,14 +74,14 @@
 
 ### 1.4 Frontend - React Project
 
-- [ ] Khởi tạo React + TypeScript + Vite
-- [ ] Cài đặt dependencies:
+- [x] Khởi tạo React + TypeScript + Vite
+- [x] Cài đặt dependencies:
   - Tailwind CSS + shadcn/ui
   - React Router
   - TanStack Query
   - Zustand
   - STOMP.js + SockJS
-- [ ] Thiết lập cấu trúc thư mục frontend:
+- [x] Thiết lập cấu trúc thư mục frontend:
   ```
   src/
   ├── components/     # UI components
@@ -358,10 +358,10 @@ Client A                    Server                     Client B
 
 ### 6.1 Authentication Pages
 
-- [ ] **Login Page**: Form email + password, validation, error handling
-- [ ] **Register Page**: Form đăng ký, validation
-- [ ] **Auth Guard**: Redirect về login nếu chưa đăng nhập
-- [ ] **Token Management**:
+- [x] **Login Page**: Form email + password, validation, error handling
+- [x] **Register Page**: Form đăng ký, validation
+- [x] **Auth Guard**: Redirect về login nếu chưa đăng nhập
+- [x] **Token Management**:
   - Lưu access token trong memory (Zustand store)
   - Lưu refresh token trong httpOnly cookie hoặc localStorage
   - Auto refresh token khi hết hạn (Axios interceptor)
