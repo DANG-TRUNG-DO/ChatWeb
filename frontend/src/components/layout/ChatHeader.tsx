@@ -1,5 +1,6 @@
 import React from 'react';
 import { useConversationStore } from '@/stores/useConversationStore';
+import { useWebSocketStore } from '@/stores/useWebSocketStore';
 import type { Conversation } from '@/types';
 import { Menu, User as UserIcon, MoreVertical, Users } from 'lucide-react';
 
@@ -15,6 +16,13 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
   onOpenInfo,
 }) => {
   const { toggleMobileSidebar } = useConversationStore();
+  const { isConnected, typingUsers } = useWebSocketStore();
+
+  const activeTyping = conversation ? typingUsers[conversation.id] || [] : [];
+  const isSomeoneTyping = activeTyping.length > 0;
+  const typingText = isSomeoneTyping
+    ? `${activeTyping.map((u) => u.username).join(', ')} is typing...`
+    : null;
 
   if (!conversation) {
     return (
@@ -27,6 +35,19 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
             <Menu className="h-5 w-5" />
           </button>
           <span className="text-sm font-medium text-slate-400">Select a conversation</span>
+        </div>
+
+        {/* Realtime indicator */}
+        <div className="flex items-center gap-2">
+          <span
+            className={`h-2 w-2 rounded-full ${
+              isConnected ? 'bg-emerald-500 shadow-sm shadow-emerald-500/50' : 'bg-amber-500 animate-pulse'
+            }`}
+            title={isConnected ? 'Realtime Connected' : 'Connecting to Realtime...'}
+          />
+          <span className="text-[11px] text-slate-500">
+            {isConnected ? 'Live' : 'Connecting...'}
+          </span>
         </div>
       </header>
     );
@@ -45,7 +66,9 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
     ? otherMember?.user.avatarUrl
     : conversation.avatarUrl;
 
-  const subtitle = conversation.type === 'DIRECT'
+  const subtitle = isSomeoneTyping
+    ? typingText
+    : conversation.type === 'DIRECT'
     ? (otherMember?.user.email || 'Direct Conversation')
     : `${conversation.members.length} members`;
 
@@ -69,17 +92,41 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
           ) : (
             <UserIcon className="h-5 w-5" />
           )}
+
+          {/* Connection status indicator */}
+          <span
+            className={`absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-slate-900 ${
+              isConnected ? 'bg-emerald-500' : 'bg-amber-500'
+            }`}
+          />
         </div>
 
         {/* Conversation Title & Subtitle */}
         <div className="overflow-hidden">
           <h2 className="truncate text-sm font-bold text-white">{title}</h2>
-          <p className="truncate text-[11px] text-slate-400">{subtitle}</p>
+          <p
+            className={`truncate text-[11px] ${
+              isSomeoneTyping ? 'animate-pulse font-medium text-indigo-400' : 'text-slate-400'
+            }`}
+          >
+            {subtitle}
+          </p>
         </div>
       </div>
 
       {/* Header Actions */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-2">
+        <div className="hidden items-center gap-1.5 sm:flex">
+          <span
+            className={`h-2 w-2 rounded-full ${
+              isConnected ? 'bg-emerald-500 shadow-sm shadow-emerald-500/50' : 'bg-amber-500 animate-pulse'
+            }`}
+          />
+          <span className="text-[11px] text-slate-400">
+            {isConnected ? 'Realtime' : 'Connecting'}
+          </span>
+        </div>
+
         {onOpenInfo && (
           <button
             onClick={onOpenInfo}

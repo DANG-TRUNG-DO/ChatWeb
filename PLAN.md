@@ -411,12 +411,12 @@ Client A                    Server                     Client B
 
 ### 6.5 WebSocket Integration
 
-- [ ] Tạo `WebSocketService`:
+- [x] Tạo `WebSocketService`:
   - Connect/disconnect management
   - Auto reconnect
   - Subscribe/unsubscribe conversations
-- [ ] Tạo `useWebSocket` hook
-- [ ] Real-time updates:
+- [x] Tạo `useWebSocket` hook
+- [x] Real-time updates:
   - Tin nhắn mới xuất hiện ngay
   - Edit/delete cập nhật ngay
   - Unread count cập nhật

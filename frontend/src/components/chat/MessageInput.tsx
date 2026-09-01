@@ -6,6 +6,7 @@ interface MessageInputProps {
   onSendMessage: (content: string, replyToId?: string) => Promise<void>;
   replyingTo: Message | null;
   onCancelReply: () => void;
+  onTyping?: (typing: boolean) => void;
   disabled?: boolean;
 }
 
@@ -13,11 +14,13 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   onSendMessage,
   replyingTo,
   onCancelReply,
+  onTyping,
   disabled = false,
 }) => {
   const [content, setContent] = useState('');
   const [isSending, setIsSending] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (replyingTo && inputRef.current) {
@@ -27,6 +30,11 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 
   const handleSend = async () => {
     if (!content.trim() || isSending || disabled) return;
+
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+    if (onTyping) onTyping(false);
 
     try {
       setIsSending(true);
@@ -55,6 +63,16 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     setContent(e.target.value);
     e.target.style.height = 'auto';
     e.target.style.height = `${Math.min(e.target.scrollHeight, 120)}px`;
+
+    if (onTyping) {
+      onTyping(true);
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+      typingTimeoutRef.current = setTimeout(() => {
+        onTyping(false);
+      }, 2000);
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { messageService } from '@/services/messageService';
+import { useWebSocket } from '@/hooks/useWebSocket';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import type { Message } from '@/types';
@@ -11,6 +12,7 @@ interface ChatAreaProps {
 
 export const ChatArea: React.FC<ChatAreaProps> = ({ conversationId }) => {
   const queryClient = useQueryClient();
+  const { sendTyping } = useWebSocket();
   const [replyingTo, setReplyingTo] = useState<Message | null>(null);
 
   // Send Message Mutation
@@ -50,6 +52,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({ conversationId }) => {
         onSendMessage={handleSendMessage}
         replyingTo={replyingTo}
         onCancelReply={() => setReplyingTo(null)}
+        onTyping={(typing) => sendTyping(conversationId, typing)}
         disabled={sendMutation.isPending}
       />
     </div>
