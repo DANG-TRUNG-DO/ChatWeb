@@ -368,7 +368,7 @@ Client A                    Server                     Client B
 
 ### 6.2 Layout & Navigation
 
-- [ ] **Main Layout**:
+- [x] **Main Layout**:
   ```
   ┌──────────────────────────────────┐
   │  Sidebar    │   Chat Area        │
@@ -382,7 +382,7 @@ Client A                    Server                     Client B
   │             │  Message Input     │
   └──────────────────────────────────┘
   ```
-- [ ] Responsive design (mobile: sidebar ẩn, hiện khi toggle)
+- [x] Responsive design (mobile: sidebar ẩn, hiện khi toggle)
 
 ### 6.3 Conversation List (Sidebar)
 
