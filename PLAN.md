@@ -430,12 +430,12 @@ Client A                    Server                     Client B
 
 ### 6.7 API Service Layer
 
-- [ ] Tạo Axios instance với:
+- [x] Tạo Axios instance với:
   - Base URL configuration
   - JWT interceptor (attach token)
   - Refresh token interceptor (auto refresh)
   - Error handling interceptor
-- [ ] TanStack Query hooks cho mỗi API endpoint
+- [x] TanStack Query hooks cho mỗi API endpoint
 
 ### 6.8 User Profile
 
