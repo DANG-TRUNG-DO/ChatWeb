@@ -302,7 +302,7 @@ Client A                    Server                     Client B
 
 ### 5.3 WebSocket Controller
 
-- [ ] `ChatController` (`@MessageMapping`):
+- [x] `ChatController` (`@MessageMapping`):
   ```java
   @MessageMapping("/chat.send")        // Gửi message
   @MessageMapping("/chat.typing")      // Typing indicator (Post-MVP)
@@ -311,7 +311,7 @@ Client A                    Server                     Client B
 
 ### 5.4 Realtime Events
 
-- [ ] Định nghĩa event types:
+- [x] Định nghĩa event types:
   ```java
   enum WebSocketEventType {
     MESSAGE_SENT,
@@ -323,7 +323,7 @@ Client A                    Server                     Client B
     USER_OFFLINE       // Post-MVP
   }
   ```
-- [ ] `WebSocketEvent` wrapper DTO:
+- [x] `WebSocketEvent` wrapper DTO:
   ```json
   {
     "type": "MESSAGE_SENT",
@@ -334,15 +334,15 @@ Client A                    Server                     Client B
 
 ### 5.5 Integration với Message Module
 
-- [ ] Khi gửi message qua WebSocket → lưu DB trước → broadcast sau
-- [ ] Khi edit/delete message → cập nhật DB → broadcast event
-- [ ] Subscribe theo conversation: `/topic/conversation/{conversationId}`
+- [x] Khi gửi message qua WebSocket → lưu DB trước → broadcast sau
+- [x] Khi edit/delete message → cập nhật DB → broadcast event
+- [x] Subscribe theo conversation: `/topic/conversation/{conversationId}`
 
 ### 5.6 Testing
 
-- [ ] Unit tests cho WebSocket controller
-- [ ] Integration test: kết nối WebSocket, gửi/nhận message
-- [ ] Test JWT authentication cho WebSocket
+- [x] Unit tests cho WebSocket controller
+- [x] Integration test: kết nối WebSocket, gửi/nhận message
+- [x] Test JWT authentication cho WebSocket
 
 ### ✅ Deliverables Phase 5:
 - Client kết nối WebSocket thành công

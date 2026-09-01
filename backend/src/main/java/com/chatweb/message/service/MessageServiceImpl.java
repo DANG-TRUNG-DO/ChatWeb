@@ -13,6 +13,7 @@ import com.chatweb.message.entity.MessageType;
 import com.chatweb.message.exception.InvalidMessageException;
 import com.chatweb.message.exception.MessageAccessDeniedException;
 import com.chatweb.message.repository.MessageRepository;
+import com.chatweb.realtime.service.RealtimeService;
 import com.chatweb.user.dto.UserSummaryResponse;
 import com.chatweb.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -42,15 +43,18 @@ public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
     private final UserService userService;
     private final ConversationService conversationService;
+    private final RealtimeService realtimeService;
 
     public MessageServiceImpl(
             MessageRepository messageRepository,
             UserService userService,
-            @Lazy ConversationService conversationService
+            @Lazy ConversationService conversationService,
+            @Lazy RealtimeService realtimeService
     ) {
         this.messageRepository = messageRepository;
         this.userService = userService;
         this.conversationService = conversationService;
+        this.realtimeService = realtimeService;
     }
 
     @Override
@@ -89,7 +93,9 @@ public class MessageServiceImpl implements MessageService {
         log.info("Message {} sent by user {} in conversation {}", savedMessage.getId(), currentUserId, conversationId);
 
         UserSummaryResponse senderSummary = userService.getUserById(currentUserId);
-        return MessageResponse.fromEntity(savedMessage, senderSummary, replyToSummary);
+        MessageResponse response = MessageResponse.fromEntity(savedMessage, senderSummary, replyToSummary);
+        realtimeService.broadcastMessageSent(conversationId, response);
+        return response;
     }
 
     @Override
@@ -190,7 +196,9 @@ public class MessageServiceImpl implements MessageService {
             });
         }
 
-        return MessageResponse.fromEntity(updatedMessage, senderSummary, replyToSummary);
+        MessageResponse response = MessageResponse.fromEntity(updatedMessage, senderSummary, replyToSummary);
+        realtimeService.broadcastMessageUpdated(updatedMessage.getConversationId(), response);
+        return response;
     }
 
     @Override
@@ -207,6 +215,7 @@ public class MessageServiceImpl implements MessageService {
         message.setContent(null);
         messageRepository.save(message);
         log.info("Message {} soft-deleted by user {}", messageId, currentUserId);
+        realtimeService.broadcastMessageDeleted(message.getConversationId(), messageId);
     }
 
     @Override
@@ -232,6 +241,7 @@ public class MessageServiceImpl implements MessageService {
 
         if (targetMessageId != null) {
             conversationService.updateLastReadMessage(conversationId, currentUserId, targetMessageId);
+            realtimeService.broadcastMessageRead(conversationId, currentUserId, targetMessageId);
         }
     }
 

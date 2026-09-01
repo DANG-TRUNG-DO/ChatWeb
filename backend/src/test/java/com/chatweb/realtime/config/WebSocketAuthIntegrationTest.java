@@ -1,8 +1,13 @@
 package com.chatweb.realtime.config;
 
+import com.chatweb.auth.repository.RefreshTokenRepository;
 import com.chatweb.auth.service.JwtTokenProvider;
+import com.chatweb.conversation.repository.ConversationMemberRepository;
+import com.chatweb.conversation.repository.ConversationRepository;
+import com.chatweb.message.repository.MessageRepository;
 import com.chatweb.user.entity.User;
 import com.chatweb.user.repository.UserRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,6 +45,18 @@ class WebSocketAuthIntegrationTest {
     private UserRepository userRepository;
 
     @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
+
+    @Autowired
+    private ConversationMemberRepository conversationMemberRepository;
+
+    @Autowired
+    private ConversationRepository conversationRepository;
+
+    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     private WebSocketStompClient stompClient;
@@ -48,7 +65,7 @@ class WebSocketAuthIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        userRepository.deleteAll();
+        cleanDatabase();
 
         testUser = User.builder()
                 .email("wsuser@example.com")
@@ -63,6 +80,19 @@ class WebSocketAuthIntegrationTest {
         List<Transport> transports = Collections.singletonList(new WebSocketTransport(new StandardWebSocketClient()));
         stompClient = new WebSocketStompClient(new SockJsClient(transports));
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
+    }
+
+    @AfterEach
+    void tearDown() {
+        cleanDatabase();
+    }
+
+    private void cleanDatabase() {
+        messageRepository.deleteAll();
+        conversationMemberRepository.deleteAll();
+        conversationRepository.deleteAll();
+        refreshTokenRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test

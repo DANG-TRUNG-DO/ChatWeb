@@ -50,10 +50,18 @@ public class WebSocketAuthChannelInterceptor implements ChannelInterceptor {
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
                 accessor.setUser(authentication);
+                if (accessor.getSessionAttributes() != null) {
+                    accessor.getSessionAttributes().put("USER_AUTHENTICATION", authentication);
+                }
                 log.debug("WebSocket authenticated for user: {}", userDetails.getUsername());
             } catch (Exception ex) {
                 log.error("Failed to authenticate WebSocket connection: {}", ex.getMessage());
                 throw new BadCredentialsException("Failed to authenticate WebSocket connection: " + ex.getMessage(), ex);
+            }
+        } else if (accessor.getUser() == null && accessor.getSessionAttributes() != null) {
+            Object authObj = accessor.getSessionAttributes().get("USER_AUTHENTICATION");
+            if (authObj instanceof UsernamePasswordAuthenticationToken authentication) {
+                accessor.setUser(authentication);
             }
         }
 

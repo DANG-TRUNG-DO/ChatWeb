@@ -10,6 +10,7 @@ import com.chatweb.message.entity.MessageType;
 import com.chatweb.message.exception.InvalidMessageException;
 import com.chatweb.message.exception.MessageAccessDeniedException;
 import com.chatweb.message.repository.MessageRepository;
+import com.chatweb.realtime.service.RealtimeService;
 import com.chatweb.user.dto.UserSummaryResponse;
 import com.chatweb.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,6 +52,9 @@ class MessageServiceTest {
 
     @Mock
     private ConversationService conversationService;
+
+    @Mock
+    private RealtimeService realtimeService;
 
     @InjectMocks
     private MessageServiceImpl messageService;
