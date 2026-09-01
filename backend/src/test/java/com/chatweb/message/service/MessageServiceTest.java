@@ -297,4 +297,45 @@ class MessageServiceTest {
         assertThrows(MessageAccessDeniedException.class, () ->
                 messageService.deleteMessage(userId, messageId));
     }
+
+    @Test
+    @DisplayName("Should mark conversation as read up to latest message when request has null messageId")
+    void markAsRead_LatestMessage_Success() {
+        doNothing().when(conversationService).validateUserInConversation(conversationId, userId);
+
+        Message latest = Message.builder()
+                .id(messageId)
+                .conversationId(conversationId)
+                .senderId(otherUserId)
+                .build();
+
+        when(messageRepository.findFirstByConversationIdOrderByCreatedAtDesc(conversationId))
+                .thenReturn(Optional.of(latest));
+
+        messageService.markAsRead(userId, conversationId, null);
+
+        verify(conversationService).updateLastReadMessage(conversationId, userId, messageId);
+    }
+
+    @Test
+    @DisplayName("Should mark conversation as read up to specific message when request provides messageId")
+    void markAsRead_SpecificMessage_Success() {
+        doNothing().when(conversationService).validateUserInConversation(conversationId, userId);
+
+        Message specific = Message.builder()
+                .id(messageId)
+                .conversationId(conversationId)
+                .senderId(otherUserId)
+                .build();
+
+        when(messageRepository.findById(messageId)).thenReturn(Optional.of(specific));
+
+        com.chatweb.message.dto.MarkAsReadRequest req = com.chatweb.message.dto.MarkAsReadRequest.builder()
+                .messageId(messageId)
+                .build();
+
+        messageService.markAsRead(userId, conversationId, req);
+
+        verify(conversationService).updateLastReadMessage(conversationId, userId, messageId);
+    }
 }

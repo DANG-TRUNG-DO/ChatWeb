@@ -241,4 +241,14 @@ public class ConversationServiceImpl implements ConversationService {
             conversationRepository.save(c);
         });
     }
+
+    @Override
+    @Transactional
+    public void updateLastReadMessage(UUID conversationId, UUID userId, UUID messageId) {
+        memberRepository.findByConversationIdAndUserId(conversationId, userId).ifPresent(member -> {
+            member.setLastReadMessageId(messageId);
+            memberRepository.save(member);
+            log.info("Updated last read message to {} for user {} in conversation {}", messageId, userId, conversationId);
+        });
+    }
 }

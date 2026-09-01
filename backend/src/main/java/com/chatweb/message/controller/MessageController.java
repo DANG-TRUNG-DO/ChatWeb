@@ -116,6 +116,25 @@ public class MessageController {
         return ResponseEntity.ok(ApiResponse.success("Message deleted successfully", null));
     }
 
+    @PostMapping("/api/conversations/{conversationId}/read")
+    @Operation(summary = "Mark messages as read", description = "Marks messages in a conversation as read up to a specified message or the latest message.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Conversation marked as read successfully"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid message ID or message does not belong to conversation"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "Unauthorized - Bearer token missing or invalid"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "403", description = "Forbidden - Not a member of this conversation")
+    })
+    public ResponseEntity<ApiResponse<Void>> markAsRead(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @Parameter(description = "Conversation UUID", required = true)
+            @PathVariable("conversationId") UUID conversationId,
+            @RequestBody(required = false) com.chatweb.message.dto.MarkAsReadRequest request
+    ) {
+        validatePrincipal(principal);
+        messageService.markAsRead(principal.getId(), conversationId, request);
+        return ResponseEntity.ok(ApiResponse.success("Conversation marked as read", null));
+    }
+
     private void validatePrincipal(UserPrincipal principal) {
         if (principal == null) {
             throw new ResourceNotFoundException("User not authenticated");

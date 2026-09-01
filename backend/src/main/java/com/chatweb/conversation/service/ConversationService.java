@@ -65,4 +65,13 @@ public interface ConversationService {
      * @param conversationId the ID of conversation
      */
     void updateConversationTimestamp(UUID conversationId);
+
+    /**
+     * Updates the last read message ID for a user in a conversation.
+     *
+     * @param conversationId the ID of conversation
+     * @param userId the ID of user
+     * @param messageId the ID of the last read message
+     */
+    void updateLastReadMessage(UUID conversationId, UUID userId, UUID messageId);
 }

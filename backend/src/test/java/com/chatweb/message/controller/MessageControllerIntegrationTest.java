@@ -287,4 +287,43 @@ class MessageControllerIntegrationTest {
                 .andExpect(jsonPath("$.data.content[0].deleted", is(true)))
                 .andExpect(jsonPath("$.data.content[0].content", is("Tin nhắn đã bị thu hồi")));
     }
+
+    @Test
+    @DisplayName("POST /api/conversations/{id}/read: Should mark conversation as read and reset unread count")
+    void markAsRead_Success() throws Exception {
+        String tokenUser1 = registerAndGetToken("user1@example.com", "user1", "User One");
+        String tokenUser2 = registerAndGetToken("user2@example.com", "user2", "User Two");
+        User user2 = userRepository.findByUsername("user2").orElseThrow();
+
+        String convId = createDirectConversation(tokenUser1, user2);
+
+        // User 1 sends a message to User 2
+        SendMessageRequest sendReq = SendMessageRequest.builder()
+                .content("Hello User 2!")
+                .build();
+
+        mockMvc.perform(post("/api/conversations/" + convId + "/messages")
+                        .header("Authorization", "Bearer " + tokenUser1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(sendReq)))
+                .andExpect(status().isCreated());
+
+        // Check User 2's conversation list -> unreadCount should be 1
+        mockMvc.perform(get("/api/conversations")
+                        .header("Authorization", "Bearer " + tokenUser2))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].unreadCount", is(1)));
+
+        // User 2 marks conversation as read
+        mockMvc.perform(post("/api/conversations/" + convId + "/read")
+                        .header("Authorization", "Bearer " + tokenUser2))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status", is(200)));
+
+        // Check User 2's conversation list again -> unreadCount should now be 0
+        mockMvc.perform(get("/api/conversations")
+                        .header("Authorization", "Bearer " + tokenUser2))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].unreadCount", is(0)));
+    }
 }

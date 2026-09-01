@@ -30,6 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -211,7 +212,27 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public void markAsRead(UUID currentUserId, UUID conversationId, MarkAsReadRequest request) {
-        // Will be detailed in Task 4.5
+        conversationService.validateUserInConversation(conversationId, currentUserId);
+
+        UUID targetMessageId = null;
+        if (request != null && request.getMessageId() != null) {
+            Message message = messageRepository.findById(request.getMessageId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Message", "id", request.getMessageId()));
+
+            if (!message.getConversationId().equals(conversationId)) {
+                throw new InvalidMessageException("Message does not belong to this conversation");
+            }
+            targetMessageId = message.getId();
+        } else {
+            Optional<Message> latest = messageRepository.findFirstByConversationIdOrderByCreatedAtDesc(conversationId);
+            if (latest.isPresent()) {
+                targetMessageId = latest.get().getId();
+            }
+        }
+
+        if (targetMessageId != null) {
+            conversationService.updateLastReadMessage(conversationId, currentUserId, targetMessageId);
+        }
     }
 
     @Override
