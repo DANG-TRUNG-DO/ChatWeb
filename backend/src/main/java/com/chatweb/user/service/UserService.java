@@ -44,4 +44,12 @@ public interface UserService {
      * @return PageResponse containing list of UserSummaryResponse
      */
     PageResponse<UserSummaryResponse> searchUsers(UUID currentUserId, String query, int page, int size);
+
+    /**
+     * Retrieves summary information for multiple users by their IDs.
+     *
+     * @param userIds collection of user IDs
+     * @return Map of userId to UserSummaryResponse
+     */
+    java.util.Map<UUID, UserSummaryResponse> getUsersSummaryByIds(java.util.Collection<UUID> userIds);
 }

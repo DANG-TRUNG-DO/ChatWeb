@@ -79,6 +79,22 @@ public class UserServiceImpl implements UserService {
         return PageResponse.of(content, userPage);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public java.util.Map<UUID, UserSummaryResponse> getUsersSummaryByIds(java.util.Collection<UUID> userIds) {
+        if (userIds == null || userIds.isEmpty()) {
+            return java.util.Collections.emptyMap();
+        }
+
+        return userRepository.findAllById(userIds)
+                .stream()
+                .map(UserSummaryResponse::fromEntity)
+                .collect(java.util.stream.Collectors.toMap(
+                        UserSummaryResponse::getId,
+                        dto -> dto
+                ));
+    }
+
     private User findUserById(UUID userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
