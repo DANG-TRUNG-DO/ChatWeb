@@ -28,9 +28,9 @@
 
 ### 1.1 Backend - Spring Boot Project
 
-- [ ] Khởi tạo Spring Boot project (Java 21, Maven/Gradle)
-- [ ] Cấu hình `application.yml` với các profile: `dev`, `prod`
-- [ ] Thiết lập cấu trúc **Modular Monolith** với các package:
+- [x] Khởi tạo Spring Boot project (Java 21, Maven/Gradle)
+- [x] Cấu hình `application.yml` với các profile: `dev`, `prod`
+- [x] Thiết lập cấu trúc **Modular Monolith** với các package:
   ```
   com.chatweb
   ├── auth/          # Authentication module
@@ -40,7 +40,7 @@
   ├── realtime/      # WebSocket/Realtime module
   └── common/        # Shared utilities, exceptions, config
   ```
-- [ ] Mỗi module có cấu trúc internal:
+- [x] Mỗi module có cấu trúc internal:
   ```
   module/
   ├── controller/
@@ -53,24 +53,24 @@
 
 ### 1.2 Database & Migration
 
-- [ ] Cấu hình PostgreSQL connection
-- [ ] Tích hợp **Flyway** migration
-- [ ] Tạo migration script ban đầu:
+- [x] Cấu hình PostgreSQL connection
+- [x] Tích hợp **Flyway** migration
+- [x] Tạo migration script ban đầu:
   - `V1__create_users_table.sql`
   - `V2__create_refresh_tokens_table.sql`
   - `V3__create_conversations_table.sql`
   - `V4__create_conversation_members_table.sql`
   - `V5__create_messages_table.sql`
-- [ ] Thêm index cho `messages` (conversation_id, created_at) phục vụ cursor pagination
+- [x] Thêm index cho `messages` (conversation_id, created_at) phục vụ cursor pagination
 
 ### 1.3 Docker & Docker Compose
 
-- [ ] Tạo `Dockerfile` cho backend (multi-stage build)
-- [ ] Tạo `docker-compose.yml` với:
+- [x] Tạo `Dockerfile` cho backend (multi-stage build)
+- [x] Tạo `docker-compose.yml` với:
   - PostgreSQL container
   - Redis container (chuẩn bị sẵn cho Phase sau)
   - Backend container
-- [ ] Tạo `.env.example` cho environment variables
+- [x] Tạo `.env.example` cho environment variables
 
 ### 1.4 Frontend - React Project
 
@@ -95,9 +95,9 @@
 
 ### 1.5 Swagger / OpenAPI
 
-- [ ] Tích hợp SpringDoc OpenAPI
-- [ ] Cấu hình Swagger UI tại `/swagger-ui.html`
-- [ ] Thêm JWT Bearer authentication vào Swagger
+- [x] Tích hợp SpringDoc OpenAPI
+- [x] Cấu hình Swagger UI tại `/swagger-ui.html`
+- [x] Thêm JWT Bearer authentication vào Swagger
 
 ### ✅ Deliverables Phase 1:
 - Project chạy được local với Docker Compose
@@ -113,8 +113,8 @@
 
 ### 2.1 Database Entities
 
-- [ ] `User` entity (id, email, username, password_hash, display_name, avatar_url, created_at, updated_at)
-- [ ] `RefreshToken` entity (id, user_id, token, expires_at, revoked)
+- [x] `User` entity (id, email, username, password_hash, display_name, avatar_url, created_at, updated_at)
+- [x] `RefreshToken` entity (id, user_id, token, expires_at, revoked)
 
 ### 2.2 API Endpoints
 
@@ -127,22 +127,22 @@
 
 ### 2.3 Security Implementation
 
-- [ ] **Password hashing** với BCrypt
-- [ ] **JWT Access Token** (short-lived, ~15 phút)
-- [ ] **JWT Refresh Token** (long-lived, ~7 ngày, lưu DB)
-- [ ] Tạo `JwtTokenProvider` utility class
-- [ ] Tạo `JwtAuthenticationFilter` (OncePerRequestFilter)
-- [ ] Cấu hình `SecurityFilterChain`:
+- [x] **Password hashing** với BCrypt
+- [x] **JWT Access Token** (short-lived, ~15 phút)
+- [x] **JWT Refresh Token** (long-lived, ~7 ngày, lưu DB)
+- [x] Tạo `JwtTokenProvider` utility class
+- [x] Tạo `JwtAuthenticationFilter` (OncePerRequestFilter)
+- [x] Cấu hình `SecurityFilterChain`:
   - Permit: `/api/auth/**`, `/swagger-ui/**`, `/v3/api-docs/**`
   - Authenticate: tất cả endpoint còn lại
-- [ ] **CORS** configuration
-- [ ] **Input validation** với Bean Validation (`@Valid`, `@NotBlank`, `@Email`, etc.)
+- [x] **CORS** configuration
+- [x] **Input validation** với Bean Validation (`@Valid`, `@NotBlank`, `@Email`, etc.)
 
 ### 2.4 Error Handling
 
-- [ ] Global exception handler (`@ControllerAdvice`)
-- [ ] Custom exceptions: `EmailAlreadyExistsException`, `InvalidCredentialsException`, `TokenExpiredException`
-- [ ] Chuẩn hóa error response format:
+- [x] Global exception handler (`@ControllerAdvice`)
+- [x] Custom exceptions: `EmailAlreadyExistsException`, `InvalidCredentialsException`, `TokenExpiredException`
+- [x] Chuẩn hóa error response format:
   ```json
   {
     "status": 400,
@@ -154,10 +154,10 @@
 
 ### 2.5 Testing
 
-- [ ] Unit tests cho `AuthService` (Mockito)
-- [ ] Unit tests cho `JwtTokenProvider`
-- [ ] Integration tests với Testcontainers (PostgreSQL)
-- [ ] Test register, login, refresh, logout flows
+- [x] Unit tests cho `AuthService` (Mockito)
+- [x] Unit tests cho `JwtTokenProvider`
+- [x] Integration tests với Testcontainers (PostgreSQL)
+- [x] Test register, login, refresh, logout flows
 
 ### ✅ Deliverables Phase 2:
 - User có thể register/login thành công
@@ -182,22 +182,22 @@
 
 ### 3.2 Features
 
-- [ ] **View Profile**: trả về thông tin user (không bao gồm password)
-- [ ] **Update Profile**: cập nhật display_name, avatar_url
-- [ ] **Search User**: tìm kiếm theo username hoặc display_name (ILIKE query)
-- [ ] **Avatar**: lưu avatar dạng URL (MVP dùng URL external, sau này có thể upload)
+- [x] **View Profile**: trả về thông tin user (không bao gồm password)
+- [x] **Update Profile**: cập nhật display_name, avatar_url
+- [x] **Search User**: tìm kiếm theo username hoặc display_name (ILIKE query)
+- [x] **Avatar**: lưu avatar dạng URL (MVP dùng URL external, sau này có thể upload)
 
 ### 3.3 DTOs & Mapping
 
-- [ ] `UserProfileResponse` DTO
-- [ ] `UpdateProfileRequest` DTO
-- [ ] `UserSearchResponse` DTO (phân biệt thông tin public vs private)
-- [ ] Sử dụng MapStruct hoặc manual mapping
+- [x] `UserProfileResponse` DTO
+- [x] `UpdateProfileRequest` DTO
+- [x] `UserSearchResponse` DTO (phân biệt thông tin public vs private)
+- [x] Sử dụng MapStruct hoặc manual mapping
 
 ### 3.4 Testing
 
-- [ ] Unit tests cho `UserService`
-- [ ] Integration tests cho search functionality
+- [x] Unit tests cho `UserService`
+- [x] Integration tests cho search functionality
 
 ### ✅ Deliverables Phase 3:
 - User xem/sửa được profile
@@ -212,11 +212,11 @@
 
 ### 4.1 Database Design
 
-- [ ] `Conversation` entity:
+- [x] `Conversation` entity:
   - `id`, `type` (DIRECT/GROUP), `name` (nullable, dùng cho group), `created_at`, `updated_at`
-- [ ] `ConversationMember` entity:
+- [x] `ConversationMember` entity:
   - `id`, `conversation_id`, `user_id`, `role` (OWNER/ADMIN/MEMBER), `last_read_message_id`, `joined_at`
-- [ ] `Message` entity:
+- [x] `Message` entity:
   - `id`, `conversation_id`, `sender_id`, `content`, `type` (TEXT/IMAGE/FILE), `reply_to_id` (nullable), `edited`, `deleted`, `created_at`, `updated_at`
 
 ### 4.2 Conversation API
@@ -240,31 +240,31 @@
 
 ### 4.4 Business Logic
 
-- [ ] **Tạo Direct Conversation**: Kiểm tra đã tồn tại conversation giữa 2 user chưa
-- [ ] **Cursor-based Pagination**: Sử dụng `message_id` hoặc `created_at` làm cursor
+- [x] **Tạo Direct Conversation**: Kiểm tra đã tồn tại conversation giữa 2 user chưa
+- [x] **Cursor-based Pagination**: Sử dụng `message_id` hoặc `created_at` làm cursor
   ```sql
   SELECT * FROM messages
   WHERE conversation_id = ? AND id < ?
   ORDER BY id DESC
   LIMIT 20
   ```
-- [ ] **Read/Unread**: Cập nhật `last_read_message_id` trong `conversation_members`
-- [ ] **Unread Count**: Đếm messages có id > last_read_message_id
-- [ ] **Edit Message**: Chỉ sender mới được edit, đánh dấu `edited = true`
-- [ ] **Delete Message**: Soft delete, đánh dấu `deleted = true`
-- [ ] **Reply Message**: Lưu `reply_to_id`, trả về referenced message
+- [x] **Read/Unread**: Cập nhật `last_read_message_id` trong `conversation_members`
+- [x] **Unread Count**: Đếm messages có id > last_read_message_id
+- [x] **Edit Message**: Chỉ sender mới được edit, đánh dấu `edited = true`
+- [x] **Delete Message**: Soft delete, đánh dấu `deleted = true`
+- [x] **Reply Message**: Lưu `reply_to_id`, trả về referenced message
 
 ### 4.5 Authorization
 
-- [ ] Chỉ member của conversation mới xem/gửi message
-- [ ] Chỉ sender mới edit/delete message của mình
-- [ ] Chỉ OWNER mới xóa conversation
+- [x] Chỉ member của conversation mới xem/gửi message
+- [x] Chỉ sender mới edit/delete message của mình
+- [x] Chỉ OWNER mới xóa conversation
 
 ### 4.6 Testing
 
-- [ ] Unit tests cho `ConversationService`, `MessageService`
-- [ ] Integration tests cho pagination, read/unread
-- [ ] Test authorization rules
+- [x] Unit tests cho `ConversationService`, `MessageService`
+- [x] Integration tests cho pagination, read/unread
+- [x] Test authorization rules
 
 ### ✅ Deliverables Phase 4:
 - Direct chat hoạt động qua REST API
@@ -280,11 +280,11 @@
 
 ### 5.1 WebSocket Configuration
 
-- [ ] Cấu hình `WebSocketMessageBrokerConfigurer`:
+- [x] Cấu hình `WebSocketMessageBrokerConfigurer`:
   - Endpoint: `/ws` (với SockJS fallback)
   - Application destination prefix: `/app`
   - Broker prefix: `/topic`, `/queue`
-- [ ] **JWT Authentication cho WebSocket**:
+- [x] **JWT Authentication cho WebSocket**:
   - Interceptor xác thực token khi CONNECT
   - Gắn user principal vào WebSocket session
 
