@@ -439,8 +439,8 @@ Client A                    Server                     Client B
 
 ### 6.8 User Profile
 
-- [ ] **Profile Page/Modal**: xem và chỉnh sửa profile
-- [ ] Hiển thị avatar, display name
+- [x] **Profile Page/Modal**: xem và chỉnh sửa profile
+- [x] Hiển thị avatar, display name
 
 ### ✅ Deliverables Phase 6:
 - Giao diện chat hoàn chỉnh

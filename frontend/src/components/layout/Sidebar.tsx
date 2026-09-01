@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useConversationStore } from '@/stores/useConversationStore';
+import { ProfileModal } from '@/components/profile/ProfileModal';
 import {
   MessageSquare,
   Search,
@@ -8,6 +9,7 @@ import {
   X,
   Plus,
   User as UserIcon,
+  Settings,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -24,6 +26,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ children, onOpenNewChat }) => 
     setSearchQuery,
   } = useConversationStore();
 
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+
   return (
     <>
       {/* Mobile Backdrop Overlay */}
@@ -33,6 +37,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ children, onOpenNewChat }) => 
           onClick={() => setMobileSidebarOpen(false)}
         />
       )}
+
+      {/* Profile Modal */}
+      <ProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+      />
 
       {/* Sidebar Main Container */}
       <aside
@@ -109,9 +119,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ children, onOpenNewChat }) => 
           )}
         </div>
 
-        {/* Bottom User Info & Logout Footer */}
+        {/* Bottom User Info & Profile/Logout Footer */}
         <div className="flex h-16 shrink-0 items-center justify-between border-t border-slate-800 bg-slate-950/40 px-4">
-          <div className="flex items-center gap-3 overflow-hidden">
+          <button
+            onClick={() => setIsProfileModalOpen(true)}
+            title="Edit Profile"
+            className="flex items-center gap-3 overflow-hidden text-left rounded-xl p-1.5 transition hover:bg-slate-800/60"
+          >
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-600/20 text-indigo-400 ring-1 ring-indigo-500/30">
               {user?.avatarUrl ? (
                 <img
@@ -129,15 +143,25 @@ export const Sidebar: React.FC<SidebarProps> = ({ children, onOpenNewChat }) => 
               </p>
               <p className="truncate text-[11px] text-slate-400">@{user?.username}</p>
             </div>
-          </div>
-
-          <button
-            onClick={() => logout()}
-            title="Logout"
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-red-500/20 hover:text-red-400"
-          >
-            <LogOut className="h-4 w-4" />
           </button>
+
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setIsProfileModalOpen(true)}
+              title="Profile Settings"
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-800 hover:text-white"
+            >
+              <Settings className="h-4 w-4" />
+            </button>
+
+            <button
+              onClick={() => logout()}
+              title="Logout"
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-red-500/20 hover:text-red-400"
+            >
+              <LogOut className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </aside>
     </>
