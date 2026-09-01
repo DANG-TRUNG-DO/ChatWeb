@@ -393,7 +393,7 @@ Client A                    Server                     Client B
 
 ### 6.4 Chat Area
 
-- [ ] **Message List**:
+- [x] **Message List**:
   - Hiển thị tin nhắn theo thời gian
   - Phân biệt tin nhắn gửi (phải) vs nhận (trái)
   - Avatar + tên sender
@@ -401,10 +401,10 @@ Client A                    Server                     Client B
   - Reply indicator
   - Edited badge
   - Infinite scroll (load thêm messages khi scroll lên)
-- [ ] **Message Input**:
+- [x] **Message Input**:
   - Text input với Enter để gửi
   - Reply mode (hiển thị message đang reply)
-- [ ] **Message Actions** (right-click hoặc hover menu):
+- [x] **Message Actions** (right-click hoặc hover menu):
   - Reply
   - Edit (chỉ message của mình)
   - Delete (chỉ message của mình)

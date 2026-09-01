@@ -69,6 +69,20 @@ export interface Message {
   updatedAt: string;
 }
 
+export interface SendMessageRequest {
+  content: string;
+  type?: MessageType;
+  replyToId?: string;
+}
+
+export interface UpdateMessageRequest {
+  content: string;
+}
+
+export interface MarkAsReadRequest {
+  messageId?: string;
+}
+
 // WebSocket event types
 export type WebSocketEventType =
   | 'MESSAGE_SENT'
