@@ -423,10 +423,10 @@ Client A                    Server                     Client B
 
 ### 6.6 State Management (Zustand)
 
-- [ ] `useAuthStore`: user, tokens, login/logout actions
-- [ ] `useConversationStore`: conversations list, active conversation
-- [ ] `useMessageStore`: messages by conversation
-- [ ] `useWebSocketStore`: connection state
+- [x] `useAuthStore`: user, tokens, login/logout actions
+- [x] `useConversationStore`: conversations list, active conversation
+- [x] `useMessageStore`: messages by conversation
+- [x] `useWebSocketStore`: connection state
 
 ### 6.7 API Service Layer
 
