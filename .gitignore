@@ -13,7 +13,7 @@ lerna-debug.log*
 *.local
 application-local.yml
 
-# IDE & Editors
+# IDE & Editors & AI Guidelines
 .idea/
 .vscode/
 *.iml
@@ -23,6 +23,9 @@ application-local.yml
 .project
 .settings/
 .factorypath
+GEMINI.md
+AGENTS.md
+CLAUDE.md
 
 # OS files
 .DS_Store
