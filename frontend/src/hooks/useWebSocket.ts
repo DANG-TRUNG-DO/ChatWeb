@@ -92,7 +92,7 @@ export const useWebSocket = () => {
             return oldConversations.map((c) => {
               if (c.id === conversationId) {
                 const isCurrentActive = activeConversationId === conversationId;
-                const isOwnMessage = newMessage.senderId === user?.id;
+                const isOwnMessage = (newMessage.senderId || newMessage.sender?.id) === user?.id;
                 const shouldIncrementUnread = !isCurrentActive && !isOwnMessage;
 
                 return {

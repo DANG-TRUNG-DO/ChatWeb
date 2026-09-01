@@ -59,7 +59,7 @@ export type MessageType = 'TEXT' | 'IMAGE' | 'FILE';
 export interface Message {
   id: string;
   conversationId: string;
-  senderId: string;
+  senderId?: string;
   sender: User;
   content: string | null;
   type: MessageType;

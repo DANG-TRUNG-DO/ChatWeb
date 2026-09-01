@@ -26,7 +26,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
   onEdit,
   onDelete,
 }) => {
-  const isOwn = message.senderId === currentUser?.id;
+  const isOwn = (message.senderId || message.sender?.id) === currentUser?.id;
   const isDeleted = message.deleted;
 
   const [isEditing, setIsEditing] = useState(false);
