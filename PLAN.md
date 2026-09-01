@@ -386,10 +386,10 @@ Client A                    Server                     Client B
 
 ### 6.3 Conversation List (Sidebar)
 
-- [ ] Hiển thị danh sách conversations
-- [ ] Mỗi item hiển thị: avatar, tên, last message, thời gian, unread count
-- [ ] Search user → tạo conversation mới
-- [ ] Sort theo thời gian tin nhắn gần nhất
+- [x] Hiển thị danh sách conversations
+- [x] Mỗi item hiển thị: avatar, tên, last message, thời gian, unread count
+- [x] Search user → tạo conversation mới
+- [x] Sort theo thời gian tin nhắn gần nhất
 
 ### 6.4 Chat Area
 

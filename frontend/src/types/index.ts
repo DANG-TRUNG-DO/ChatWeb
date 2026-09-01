@@ -93,8 +93,24 @@ export interface ApiResponse<T> {
   timestamp: string;
 }
 
+export interface CreateDirectConversationRequest {
+  recipientId: string;
+}
+
 export interface CursorPageResponse<T> {
   content: T[];
   hasMore: boolean;
   nextCursor: string | null;
 }
+
+export interface PageResponse<T> {
+  content: T[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+}
+
