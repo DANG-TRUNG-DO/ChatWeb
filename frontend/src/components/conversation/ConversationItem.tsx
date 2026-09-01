@@ -21,13 +21,14 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   const otherMember = isDirect
     ? conversation.members?.find((m) => m.userId !== user?.id)
     : null;
+  const partner = conversation.partner;
 
   const title = isDirect
-    ? (otherMember?.user.displayName || otherMember?.user.username || 'Direct Chat')
+    ? (partner?.displayName || partner?.username || otherMember?.user?.displayName || otherMember?.user?.username || conversation.name || 'Direct Chat')
     : (conversation.name || 'Group Chat');
 
   const avatarUrl = isDirect
-    ? otherMember?.user.avatarUrl
+    ? (partner?.avatarUrl || otherMember?.user?.avatarUrl || conversation.avatarUrl)
     : conversation.avatarUrl;
 
   const lastMessage = conversation.lastMessage;

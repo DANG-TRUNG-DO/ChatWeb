@@ -55,22 +55,24 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
 
   // Get recipient info for direct chat
   const otherMember = conversation.type === 'DIRECT'
-    ? conversation.members.find((m) => m.userId !== currentUserId)
+    ? conversation.members?.find((m) => m.userId !== currentUserId)
     : null;
 
+  const partner = conversation.partner;
+
   const title = conversation.type === 'DIRECT'
-    ? (otherMember?.user.displayName || otherMember?.user.username || 'Direct Chat')
+    ? (partner?.displayName || partner?.username || otherMember?.user?.displayName || otherMember?.user?.username || conversation.name || 'Direct Chat')
     : (conversation.name || 'Group Chat');
 
   const avatar = conversation.type === 'DIRECT'
-    ? otherMember?.user.avatarUrl
+    ? (partner?.avatarUrl || otherMember?.user?.avatarUrl || conversation.avatarUrl)
     : conversation.avatarUrl;
 
   const subtitle = isSomeoneTyping
     ? typingText
     : conversation.type === 'DIRECT'
-    ? (otherMember?.user.email || 'Direct Conversation')
-    : `${conversation.members.length} members`;
+    ? (partner?.email || otherMember?.user?.email || 'Direct Conversation')
+    : `${conversation.members?.length ?? 0} members`;
 
   return (
     <header className="flex h-16 shrink-0 items-center justify-between border-b border-slate-800 bg-slate-900/60 px-4 backdrop-blur md:px-6">

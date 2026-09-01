@@ -36,7 +36,8 @@ export interface Conversation {
   type: ConversationType;
   name: string | null;
   avatarUrl: string | null;
-  members: ConversationMember[];
+  partner?: User | null;
+  members?: ConversationMember[];
   lastMessage: Message | null;
   unreadCount: number;
   createdAt: string;

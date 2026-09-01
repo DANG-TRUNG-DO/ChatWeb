@@ -18,6 +18,7 @@ export const ConversationList: React.FC = () => {
     searchQuery,
     setSearchQuery,
     setConversations,
+    addOrUpdateConversation,
   } = useConversationStore();
 
   // Fetch Conversations
@@ -49,6 +50,7 @@ export const ConversationList: React.FC = () => {
     mutationFn: (recipientId: string) =>
       conversationService.createDirectConversation(recipientId),
     onSuccess: (newConv: Conversation) => {
+      addOrUpdateConversation(newConv);
       queryClient.invalidateQueries({ queryKey: ['conversations'] });
       setActiveConversationId(newConv.id);
       setSearchQuery('');
@@ -70,9 +72,10 @@ export const ConversationList: React.FC = () => {
 
     return sortedConversations.filter((c) => {
       if (c.type === 'DIRECT') {
+        const partner = c.partner;
         const other = c.members?.find((m) => m.userId !== currentUser?.id);
-        const nameMatch = other?.user.displayName?.toLowerCase().includes(q);
-        const usernameMatch = other?.user.username?.toLowerCase().includes(q);
+        const nameMatch = (partner?.displayName || other?.user?.displayName || c.name)?.toLowerCase().includes(q);
+        const usernameMatch = (partner?.username || other?.user?.username)?.toLowerCase().includes(q);
         return nameMatch || usernameMatch;
       }
       return c.name?.toLowerCase().includes(q);
