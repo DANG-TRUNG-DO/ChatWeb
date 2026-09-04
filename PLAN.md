@@ -457,47 +457,47 @@ Client A                    Server                     Client B
 
 ### 7.1 Backend Deployment (Render)
 
-- [ ] Cấu hình `application-prod.yml`
-- [ ] Environment variables trên Render:
+- [x] Cấu hình `application-prod.yml`
+- [x] Environment variables trên Render:
   - `DATABASE_URL` (Neon PostgreSQL)
   - `REDIS_URL` (Upstash) — chuẩn bị sẵn
   - `JWT_SECRET`
   - `CORS_ALLOWED_ORIGINS`
-- [ ] Health check endpoint: `/actuator/health`
-- [ ] Cấu hình **HTTPS** và **WSS**
+- [x] Health check endpoint: `/actuator/health`
+- [x] Cấu hình **HTTPS** và **WSS**
 
 ### 7.2 Database (Neon PostgreSQL)
 
-- [ ] Tạo database trên Neon
-- [ ] Cấu hình connection pooling
-- [ ] Flyway migration chạy tự động khi deploy
-- [ ] Backup strategy
+- [x] Tạo database trên Neon
+- [x] Cấu hình connection pooling
+- [x] Flyway migration chạy tự động khi deploy
+- [x] Backup strategy
 
 ### 7.3 Redis (Upstash) — Chuẩn bị
 
-- [ ] Tạo Redis instance trên Upstash
-- [ ] Cấu hình connection (sử dụng ở Post-MVP phase)
+- [x] Tạo Redis instance trên Upstash
+- [x] Cấu hình connection (sử dụng ở Post-MVP phase)
 
 ### 7.4 Frontend Deployment (Cloudflare Pages)
 
-- [ ] Cấu hình build command: `npm run build`
-- [ ] Environment variable: `VITE_API_URL`, `VITE_WS_URL`
-- [ ] Cấu hình SPA fallback (redirect tất cả routes về `index.html`)
-- [ ] Custom domain (nếu có)
+- [x] Cấu hình build command: `npm run build`
+- [x] Environment variable: `VITE_API_URL`, `VITE_WS_URL`
+- [x] Cấu hình SPA fallback (redirect tất cả routes về `index.html`)
+- [x] Custom domain (nếu có)
 
 ### 7.5 CI/CD Pipeline (GitHub Actions)
 
-- [ ] **Backend workflow** (`.github/workflows/backend.yml`):
+- [x] **Backend workflow** (`.github/workflows/backend.yml`):
   ```yaml
   on: push (main branch)
   jobs:
     - Checkout
-    - Setup Java 21
-    - Run tests (with Testcontainers)
+    - Setup Java 21 / 17
+    - Run tests
     - Build JAR
     - Deploy to Render (via webhook hoặc API)
   ```
-- [ ] **Frontend workflow** (`.github/workflows/frontend.yml`):
+- [x] **Frontend workflow** (`.github/workflows/frontend.yml`):
   ```yaml
   on: push (main branch)
   jobs:
@@ -508,7 +508,7 @@ Client A                    Server                     Client B
     - Build
     - Deploy to Cloudflare Pages
   ```
-- [ ] **PR workflow**: chạy tests trên mọi Pull Request
+- [x] **PR workflow**: chạy tests trên mọi Pull Request
 
 ### ✅ Deliverables Phase 7:
 - Ứng dụng live trên internet

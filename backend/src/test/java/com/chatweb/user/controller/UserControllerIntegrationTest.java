@@ -48,8 +48,20 @@ class UserControllerIntegrationTest {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
+    @Autowired
+    private com.chatweb.conversation.repository.ConversationRepository conversationRepository;
+
+    @Autowired
+    private com.chatweb.conversation.repository.ConversationMemberRepository memberRepository;
+
+    @Autowired
+    private com.chatweb.message.repository.MessageRepository messageRepository;
+
     @BeforeEach
     void setUp() {
+        messageRepository.deleteAll();
+        memberRepository.deleteAll();
+        conversationRepository.deleteAll();
         refreshTokenRepository.deleteAll();
         userRepository.deleteAll();
     }
