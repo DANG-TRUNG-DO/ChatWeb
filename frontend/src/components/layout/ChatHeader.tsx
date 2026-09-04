@@ -26,15 +26,15 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
 
   if (!conversation) {
     return (
-      <header className="flex h-16 shrink-0 items-center justify-between border-b border-slate-800 bg-slate-900/60 px-4 md:px-6">
+      <header className="flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-white/80 px-4 backdrop-blur dark:border-slate-800 dark:bg-slate-900/60 md:px-6">
         <div className="flex items-center gap-3">
           <button
             onClick={toggleMobileSidebar}
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white md:hidden"
           >
             <Menu className="h-5 w-5" />
           </button>
-          <span className="text-sm font-medium text-slate-400">Select a conversation</span>
+          <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Select a conversation</span>
         </div>
 
         {/* Realtime indicator */}
@@ -75,18 +75,18 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
     : `${conversation.members?.length ?? 0} members`;
 
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between border-b border-slate-800 bg-slate-900/60 px-4 backdrop-blur md:px-6">
+    <header className="flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-white/80 px-4 backdrop-blur dark:border-slate-800 dark:bg-slate-900/60 md:px-6">
       <div className="flex items-center gap-3 overflow-hidden">
         {/* Mobile Hamburger Button */}
         <button
           onClick={toggleMobileSidebar}
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-800 hover:text-white md:hidden"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white md:hidden"
         >
           <Menu className="h-5 w-5" />
         </button>
 
         {/* Conversation Avatar */}
-        <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-600/20 text-indigo-400 ring-1 ring-indigo-500/30">
+        <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-600/15 text-indigo-600 ring-1 ring-indigo-500/30 dark:bg-indigo-600/20 dark:text-indigo-400">
           {avatar ? (
             <img src={avatar} alt={title} className="h-full w-full rounded-full object-cover" />
           ) : conversation.type === 'GROUP' ? (
@@ -97,7 +97,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
 
           {/* Connection status indicator */}
           <span
-            className={`absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-slate-900 ${
+            className={`absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white dark:border-slate-900 ${
               isConnected ? 'bg-emerald-500' : 'bg-amber-500'
             }`}
           />
@@ -105,10 +105,10 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
 
         {/* Conversation Title & Subtitle */}
         <div className="overflow-hidden">
-          <h2 className="truncate text-sm font-bold text-white">{title}</h2>
+          <h2 className="truncate text-sm font-bold text-slate-900 dark:text-white">{title}</h2>
           <p
             className={`truncate text-[11px] ${
-              isSomeoneTyping ? 'animate-pulse font-medium text-indigo-400' : 'text-slate-400'
+              isSomeoneTyping ? 'animate-pulse font-medium text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400'
             }`}
           >
             {subtitle}
@@ -124,7 +124,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
               isConnected ? 'bg-emerald-500 shadow-sm shadow-emerald-500/50' : 'bg-amber-500 animate-pulse'
             }`}
           />
-          <span className="text-[11px] text-slate-400">
+          <span className="text-[11px] text-slate-500 dark:text-slate-400">
             {isConnected ? 'Realtime' : 'Connecting'}
           </span>
         </div>
@@ -132,7 +132,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
         {onOpenInfo && (
           <button
             onClick={onOpenInfo}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-800 hover:text-white"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
           >
             <MoreVertical className="h-4 w-4" />
           </button>

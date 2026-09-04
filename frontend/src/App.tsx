@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAuthStore } from '@/stores/useAuthStore';
+import { useThemeStore } from '@/stores/useThemeStore';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { PublicRoute } from '@/components/auth/PublicRoute';
 import { LoginPage } from '@/pages/auth/LoginPage';
@@ -19,10 +20,12 @@ const queryClient = new QueryClient({
 
 function App() {
   const initializeAuth = useAuthStore((state) => state.initializeAuth);
+  const initializeTheme = useThemeStore((state) => state.initializeTheme);
 
   useEffect(() => {
+    initializeTheme();
     initializeAuth();
-  }, [initializeAuth]);
+  }, [initializeAuth, initializeTheme]);
 
   return (
     <QueryClientProvider client={queryClient}>

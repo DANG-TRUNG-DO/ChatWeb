@@ -40,7 +40,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({ conversationId }) => {
   };
 
   return (
-    <div className="flex h-full flex-1 flex-col overflow-hidden bg-slate-950">
+    <div className="flex h-full flex-1 flex-col overflow-hidden bg-slate-50 dark:bg-slate-950">
       {/* Scrollable Message List */}
       <MessageList
         conversationId={conversationId}

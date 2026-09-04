@@ -9,9 +9,18 @@
       if (typeof global === 'undefined') {
         var global = window;
       }
+      try {
+        var savedTheme = localStorage.getItem('chatweb_theme') || 'dark';
+        var isDark = savedTheme === 'dark' || (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
     </script>
   </head>
-  <body class="bg-slate-950 text-slate-100 min-h-screen">
+  <body class="bg-slate-50 text-slate-900 min-h-screen transition-colors duration-150 dark:bg-slate-950 dark:text-slate-100">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

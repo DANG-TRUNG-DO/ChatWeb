@@ -18,7 +18,7 @@ export const ChatPage: React.FC = () => {
       {activeConversationId ? (
         <ChatArea conversationId={activeConversationId} />
       ) : (
-        <div className="flex h-full items-center justify-center p-6 text-slate-400">
+        <div className="flex h-full items-center justify-center p-6 text-slate-500 dark:text-slate-400">
           <p className="text-xs">Select a conversation to start messaging</p>
         </div>
       )}

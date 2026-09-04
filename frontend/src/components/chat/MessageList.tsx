@@ -110,7 +110,7 @@ export const MessageList: React.FC<MessageListProps> = ({
           <button
             onClick={() => fetchNextPage()}
             disabled={isFetchingNextPage}
-            className="flex items-center gap-1.5 rounded-full border border-slate-700 bg-slate-800/80 px-3 py-1 text-xs text-slate-300 transition hover:bg-slate-700 disabled:opacity-50"
+            className="flex items-center gap-1.5 rounded-full border border-slate-300 bg-white/90 px-3 py-1 text-xs text-slate-700 shadow-xs transition hover:bg-slate-100 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:hover:bg-slate-700"
           >
             {isFetchingNextPage ? (
               <>
@@ -126,12 +126,12 @@ export const MessageList: React.FC<MessageListProps> = ({
 
       {/* Empty messages */}
       {messages.length === 0 ? (
-        <div className="flex flex-1 flex-col items-center justify-center p-6 text-center text-slate-500">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-800/60 text-slate-400 mb-2">
+        <div className="flex flex-1 flex-col items-center justify-center p-6 text-center text-slate-400 dark:text-slate-500">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-200/80 text-slate-500 mb-2 dark:bg-slate-800/60 dark:text-slate-400">
             <MessageSquare className="h-6 w-6" />
           </div>
-          <p className="text-sm font-semibold text-slate-300">No messages yet</p>
-          <p className="text-xs text-slate-500">
+          <p className="text-sm font-semibold text-slate-800 dark:text-slate-300">No messages yet</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             Say hello to start the conversation!
           </p>
         </div>

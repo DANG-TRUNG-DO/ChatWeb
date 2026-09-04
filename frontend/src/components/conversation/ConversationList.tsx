@@ -98,14 +98,14 @@ export const ConversationList: React.FC = () => {
       {/* If search query is active, show Global User Search results */}
       {searchQuery.trim().length >= 1 && (
         <div className="space-y-2">
-          <div className="flex items-center gap-1.5 px-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-            <UserCheck className="h-3.5 w-3.5 text-indigo-400" />
+          <div className="flex items-center gap-1.5 px-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <UserCheck className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
             <span>People</span>
           </div>
 
           {isSearchingUsers ? (
-            <div className="flex items-center justify-center py-4 text-xs text-slate-500">
-              <Loader2 className="h-4 w-4 animate-spin mr-2 text-indigo-400" />
+            <div className="flex items-center justify-center py-4 text-xs text-slate-500 dark:text-slate-400">
+              <Loader2 className="h-4 w-4 animate-spin mr-2 text-indigo-600 dark:text-indigo-400" />
               Searching users...
             </div>
           ) : searchedUsers.length > 0 ? (
@@ -120,18 +120,18 @@ export const ConversationList: React.FC = () => {
               ))}
             </div>
           ) : (
-            <p className="px-3 py-2 text-xs text-slate-500">No users found</p>
+            <p className="px-3 py-2 text-xs text-slate-400 dark:text-slate-500">No users found</p>
           )}
 
-          <div className="border-t border-slate-800/80 my-3" />
+          <div className="border-t border-slate-200 my-3 dark:border-slate-800/80" />
         </div>
       )}
 
       {/* Conversations Section */}
       <div className="space-y-1">
         {searchQuery.trim().length >= 1 && (
-          <div className="flex items-center gap-1.5 px-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
-            <MessageSquare className="h-3.5 w-3.5 text-slate-400" />
+          <div className="flex items-center gap-1.5 px-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+            <MessageSquare className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />
             <span>Chats ({filteredConversations.length})</span>
           </div>
         )}
@@ -146,14 +146,14 @@ export const ConversationList: React.FC = () => {
             />
           ))
         ) : searchQuery.trim().length >= 1 ? (
-          <p className="px-3 py-2 text-xs text-slate-500">No matching conversations</p>
+          <p className="px-3 py-2 text-xs text-slate-400 dark:text-slate-500">No matching conversations</p>
         ) : (
-          <div className="flex flex-col items-center justify-center p-8 text-center text-slate-500">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-800/60 text-slate-400 mb-3">
+          <div className="flex flex-col items-center justify-center p-8 text-center text-slate-400 dark:text-slate-500">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-400 mb-3 dark:bg-slate-800/60 dark:text-slate-400">
               <Search className="h-5 w-5" />
             </div>
-            <p className="text-sm font-semibold text-slate-300">No conversations yet</p>
-            <p className="mt-1 text-xs text-slate-500 max-w-[200px]">
+            <p className="text-sm font-semibold text-slate-800 dark:text-slate-300">No conversations yet</p>
+            <p className="mt-1 text-xs text-slate-500 max-w-[200px] dark:text-slate-400">
               Search for users above to start your first chat.
             </p>
           </div>

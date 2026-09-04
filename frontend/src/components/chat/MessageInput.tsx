@@ -76,22 +76,22 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   };
 
   return (
-    <div className="border-t border-slate-800 bg-slate-900/80 p-3 backdrop-blur md:p-4">
+    <div className="border-t border-slate-200 bg-white/80 p-3 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80 md:p-4">
       {/* Reply Banner */}
       {replyingTo && (
-        <div className="mb-2 flex items-center justify-between rounded-xl border border-indigo-500/30 bg-indigo-950/40 px-3 py-2 text-xs text-indigo-300">
+        <div className="mb-2 flex items-center justify-between rounded-xl border border-[#0084ff]/30 bg-[#0084ff]/10 px-3 py-2 text-xs text-[#0084ff] dark:text-[#339cff]">
           <div className="flex items-center gap-2 overflow-hidden">
-            <CornerDownRight className="h-4 w-4 shrink-0 text-indigo-400" />
-            <span className="font-semibold text-slate-200">
+            <CornerDownRight className="h-4 w-4 shrink-0 text-[#0084ff] dark:text-[#339cff]" />
+            <span className="font-semibold text-slate-900 dark:text-slate-200">
               Replying to {replyingTo.sender?.displayName || replyingTo.sender?.username}:
             </span>
-            <span className="truncate text-slate-400">
+            <span className="truncate text-slate-500 dark:text-slate-400">
               {replyingTo.deleted ? 'Deleted message' : replyingTo.content}
             </span>
           </div>
           <button
             onClick={onCancelReply}
-            className="ml-2 rounded-md p-1 text-slate-400 hover:bg-indigo-900/40 hover:text-white"
+            className="ml-2 rounded-md p-1 text-slate-400 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white"
           >
             <X className="h-3.5 w-3.5" />
           </button>
@@ -100,7 +100,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 
       {/* Input controls */}
       <div className="flex items-end gap-2">
-        <div className="relative flex flex-1 items-center rounded-2xl border border-slate-800 bg-slate-950/80 px-3 py-1.5 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+        <div className="relative flex flex-1 items-center rounded-2xl border border-slate-200 bg-slate-100/90 px-3 py-1.5 focus-within:border-[#0084ff] focus-within:ring-1 focus-within:ring-[#0084ff] dark:border-slate-800 dark:bg-slate-950/80">
           <textarea
             ref={inputRef}
             rows={1}
@@ -109,14 +109,14 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             onKeyDown={handleKeyDown}
             disabled={disabled || isSending}
             placeholder="Type a message... (Enter to send, Shift+Enter for new line)"
-            className="max-h-32 min-h-[24px] w-full resize-none bg-transparent py-1 text-xs text-white placeholder-slate-500 focus:outline-none"
+            className="max-h-32 min-h-[24px] w-full resize-none bg-transparent py-1 text-xs text-slate-900 placeholder-slate-400 focus:outline-none dark:text-white dark:placeholder-slate-500"
           />
         </div>
 
         <button
           onClick={handleSend}
           disabled={!content.trim() || isSending || disabled}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-40"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0084ff] text-white shadow-lg shadow-[#0084ff]/25 transition hover:bg-[#0073e6] focus:outline-none focus:ring-2 focus:ring-[#0084ff] disabled:opacity-40"
         >
           <Send className="h-4 w-4" />
         </button>

@@ -47,12 +47,12 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
       onClick={onClick}
       className={`group relative flex w-full items-center gap-3 rounded-xl p-3 text-left transition-all duration-150 ${
         isActive
-          ? 'bg-indigo-600/15 ring-1 ring-indigo-500/30'
-          : 'hover:bg-slate-800/60'
+          ? 'bg-indigo-50 text-indigo-900 ring-1 ring-indigo-500/40 dark:bg-indigo-600/15 dark:text-white dark:ring-indigo-500/30'
+          : 'hover:bg-slate-100 dark:hover:bg-slate-800/60'
       }`}
     >
       {/* Avatar */}
-      <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-slate-800 text-indigo-400 ring-1 ring-slate-700/50">
+      <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-slate-200 text-indigo-600 ring-1 ring-slate-300 dark:bg-slate-800 dark:text-indigo-400 dark:ring-slate-700/50">
         {avatarUrl ? (
           <img
             src={avatarUrl}
@@ -60,9 +60,9 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
             className="h-full w-full rounded-full object-cover"
           />
         ) : isDirect ? (
-          <UserIcon className="h-6 w-6 text-slate-400" />
+          <UserIcon className="h-6 w-6 text-slate-500 dark:text-slate-400" />
         ) : (
-          <Users className="h-6 w-6 text-slate-400" />
+          <Users className="h-6 w-6 text-slate-500 dark:text-slate-400" />
         )}
       </div>
 
@@ -71,7 +71,9 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
         <div className="flex items-center justify-between gap-1">
           <h3
             className={`truncate text-sm font-semibold ${
-              isActive ? 'text-white font-bold' : 'text-slate-200'
+              isActive
+                ? 'text-indigo-950 font-bold dark:text-white'
+                : 'text-slate-900 dark:text-slate-200'
             }`}
           >
             {title}
@@ -80,8 +82,8 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
             <span
               className={`shrink-0 text-[11px] ${
                 conversation.unreadCount > 0
-                  ? 'font-semibold text-indigo-400'
-                  : 'text-slate-500'
+                  ? 'font-semibold text-indigo-600 dark:text-indigo-400'
+                  : 'text-slate-400 dark:text-slate-500'
               }`}
             >
               {timeDisplay}
@@ -93,8 +95,8 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
           <p
             className={`truncate text-xs ${
               conversation.unreadCount > 0
-                ? 'font-medium text-slate-200'
-                : 'text-slate-400'
+                ? 'font-medium text-slate-900 dark:text-slate-200'
+                : 'text-slate-500 dark:text-slate-400'
             }`}
           >
             {lastMessageText}

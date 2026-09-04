@@ -25,7 +25,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   const { activeConversationId } = useConversationStore();
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-slate-950 text-slate-100 antialiased">
+    <div className="flex h-screen w-full overflow-hidden bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
       {/* Responsive Sidebar */}
       <Sidebar onOpenNewChat={onOpenNewChat}>
         {sidebarContent}
@@ -40,7 +40,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
               currentUserId={user?.id}
               onOpenInfo={onOpenInfo}
             />
-            <div className="flex flex-1 flex-col overflow-hidden bg-slate-950">
+            <div className="flex flex-1 flex-col overflow-hidden bg-slate-50 dark:bg-slate-950">
               {children}
             </div>
           </>
